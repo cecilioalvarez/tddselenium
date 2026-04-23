@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -27,6 +28,25 @@ class FormularioTest {
 		WebElement cajaTexto = driver.findElement(By.id("nombre"));
 		// Escribir texto
 		cajaTexto.sendKeys("Juan Pérez");
+		pausar();
+	}
+	
+	@Test
+	public void pulsarCaja() {
+		driver.get("http://localhost:8080/web1/hola.html");
+
+		WebElement cajaTexto = driver.findElement(By.id("nombre"));
+		// Escribir texto
+		
+		driver.findElement(By.id("miboton")).click();
+		
+		Alert alert = driver.switchTo().alert();
+		
+		assertEquals("has pulsado",alert.getText());
+		pausar();
+	}
+
+	private void pausar() {
 		try {
 			Thread.sleep(2000);
 		} catch (InterruptedException e) {
@@ -34,6 +54,8 @@ class FormularioTest {
 			e.printStackTrace();
 		} // Esperar 2 segundos para ver el resultado
 	}
+	
+	
 
 	@AfterAll
 	public static void tearDown() {
